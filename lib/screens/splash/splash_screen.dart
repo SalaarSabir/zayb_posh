@@ -108,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF2563EB).withOpacity(0.3),
+                            color: const Color(0xFF2563EB).withValues(alpha: 0.3),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -155,13 +155,13 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(height: 50),
 
                     // Loading indicator
-                    SizedBox(
+                    const SizedBox(
                       width: 40,
                       height: 40,
                       child: CircularProgressIndicator(
                         strokeWidth: 3,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          const Color(0xFF2563EB),
+                          Color(0xFF2563EB),
                         ),
                       ),
                     ),

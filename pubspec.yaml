@@ -9,9 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # UI Components
   cupertino_icons: ^1.0.6
+  intl: ^0.19.0
+  # UI Components
+
 
   # NOTE: Baaki packages Module 2 mein add karenge jab zarorat hogi
   # provider: ^6.1.1
