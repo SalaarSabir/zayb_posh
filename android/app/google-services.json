@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519274630604",
+    "project_id": "zaybposh",
+    "storage_bucket": "zaybposh.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519274630604:android:2f40b75db321326acee169",
+        "android_client_info": {
+          "package_name": "com.example.zayb_posh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcliNbCbuRg-AIYLROkcFpefdXpFFLXK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
