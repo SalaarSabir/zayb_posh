@@ -1,7 +1,9 @@
 // lib/app.dart
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_strings.dart';
+import 'providers/auth_provider.dart';
 import 'screens/splash/splash_screen.dart';
 
 class ZaybPoshApp extends StatelessWidget {
@@ -9,19 +11,25 @@ class ZaybPoshApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: AppStrings.appName,
-      debugShowCheckedModeBanner: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        // Add more providers here as needed
+      ],
+      child: MaterialApp(
+        title: AppStrings.appName,
+        debugShowCheckedModeBanner: false,
 
-      // Use custom theme
-      theme: AppTheme.lightTheme,
+        // Use custom theme
+        theme: AppTheme.lightTheme,
 
-      // Dark theme (optional - for future)
-      // darkTheme: AppTheme.darkTheme,
-      // themeMode: ThemeMode.system,
+        // Dark theme (optional - for future)
+        // darkTheme: AppTheme.darkTheme,
+        // themeMode: ThemeMode.system,
 
-      // Starting screen
-      home: const SplashScreen(),
+        // Starting screen
+        home: const SplashScreen(),
+      ),
     );
   }
 }

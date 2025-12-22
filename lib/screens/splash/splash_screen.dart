@@ -1,6 +1,7 @@
 // lib/screens/splash/splash_screen.dart
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -56,23 +57,15 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _navigateToNextScreen() {
-    // This will be updated in Module 3 when we create auth screens
-    // For now, just print
-    debugPrint('Navigating to next screen...');
-
-    // Temporary: Show a dialog
+    // Check if user is already logged in
     if (mounted) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('ZAYB-POSH'),
-          content: const Text('Module 1 Complete!\n\nModule 2 mein hum:\n- Theme setup karenge\n- Colors define karenge\n- Routing setup karenge'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) {
+            // In Module 4, we'll add proper routing logic here
+            // For now, always go to login screen
+            return const LoginScreen();
+          },
         ),
       );
     }
