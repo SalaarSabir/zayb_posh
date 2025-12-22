@@ -11,14 +11,18 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   intl: ^0.19.0
-  # UI Components
 
+  # Firebase
+  firebase_core: ^3.8.1
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.2
 
-  # NOTE: Baaki packages Module 2 mein add karenge jab zarorat hogi
-  # provider: ^6.1.1
-  # go_router: ^13.0.0
-  # http: ^1.2.0
-  # shared_preferences: ^2.2.2
+  # State Management
+  provider: ^6.1.1
+  bloc: ^7.2.0
+
+    # Storage
+  shared_preferences: ^2.3.4
 
 dev_dependencies:
   flutter_test:
