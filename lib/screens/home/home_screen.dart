@@ -3,142 +3,277 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
+import '../../core/utils/helpers.dart';
+import '../../providers/product_provider.dart';
 import '../../providers/auth_provider.dart';
-import '../auth/login_screen.dart';
+import '../../widgets/product/product_card.dart';
+import '../../widgets/home/category_chip.dart';
+import '../../widgets/home/banner_slider.dart';
+import '../products/product_detail_screen.dart';
+import '../products/product_list_screen.dart';
+import '../search/search_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Load products when screen opens
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ProductProvider>(context, listen: false).loadProducts();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     final user = authProvider.user;
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text(AppStrings.appName),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              Helpers.getGreeting(),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            Text(
+              user?.name ?? 'Guest',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              await authProvider.signOut();
-              if (!context.mounted) return;
-              Navigator.of(context).pushReplacement(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
+                  builder: (context) => const SearchScreen(),
                 ),
               );
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {
+              // TODO: Navigate to notifications
+            },
+          ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Success Icon
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: AppColors.success.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.check_circle,
-                    size: 60,
-                    color: AppColors.success,
-                  ),
+      body: productProvider.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+        onRefresh: () => productProvider.loadProducts(),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Banner Slider
+              const BannerSlider(),
+
+              const SizedBox(height: 24),
+
+              // Categories Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppStrings.categories,
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to categories screen (handled by bottom nav)
+                      },
+                      child: const Text(AppStrings.seeAll),
+                    ),
+                  ],
                 ),
+              ),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 12),
 
-                // Welcome Message
-                Text(
-                  'Welcome to ${AppStrings.appName}!',
-                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+              // Categories Horizontal List
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: productProvider.categories.length,
+                  itemBuilder: (context, index) {
+                    final category = productProvider.categories[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: CategoryChip(
+                        category: category,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductListScreen(
+                                category: category.name,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
+              ),
 
-                const SizedBox(height: 16),
+              const SizedBox(height: 24),
 
-                // User Info
-                if (user != null) ...[
-                  Text(
-                    'Hello, ${user.name}!',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    user.email,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-
-                const SizedBox(height: 32),
-
-                // Module Info
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Column(
+              // Featured Products Section
+              if (productProvider.featuredProducts.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(
-                        Icons.celebration,
-                        size: 48,
-                        color: AppColors.primary,
-                      ),
-                      const SizedBox(height: 16),
                       Text(
-                        '🎉 Module 3 Complete!',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        AppStrings.featured,
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 12),
-                      const Text(
-                        '✅ Firebase Setup\n✅ Authentication\n✅ Login & Signup\n✅ Password Reset',
-                        style: TextStyle(
-                          fontSize: 14,
-                          height: 1.8,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Module 4 mein hum Home screen, Products, aur Categories banayenge!',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: AppColors.textSecondary,
-                          fontStyle: FontStyle.italic,
-                        ),
-                        textAlign: TextAlign.center,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProductListScreen(
+                                title: 'Featured Products',
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(AppStrings.seeAll),
                       ),
                     ],
                   ),
                 ),
+
+                const SizedBox(height: 12),
+
+                SizedBox(
+                  height: 280,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: productProvider.featuredProducts.length,
+                    itemBuilder: (context, index) {
+                      final product = productProvider.featuredProducts[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: SizedBox(
+                          width: 180,
+                          child: ProductCard(
+                            product: product,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(
+                                    product: product,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 24),
               ],
-            ),
+
+              // New Arrivals Section
+              if (productProvider.newArrivals.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppStrings.newArrivals,
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProductListScreen(
+                                title: 'New Arrivals',
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(AppStrings.seeAll),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                SizedBox(
+                  height: 280,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: productProvider.newArrivals.length,
+                    itemBuilder: (context, index) {
+                      final product = productProvider.newArrivals[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: SizedBox(
+                          width: 180,
+                          child: ProductCard(
+                            product: product,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(
+                                    product: product,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+              ],
+            ],
           ),
         ),
       ),

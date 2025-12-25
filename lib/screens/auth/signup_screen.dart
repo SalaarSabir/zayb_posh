@@ -9,7 +9,7 @@ import '../../providers/auth_provider.dart';
 import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_textfield.dart';
 import 'login_screen.dart';
-import '../home/home_screen.dart';
+import '../main/main_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -62,7 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (success) {
       Helpers.showSnackBar(context, AppStrings.signupSuccess);
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const MainScreen()),
       );
     } else {
       Helpers.showSnackBar(

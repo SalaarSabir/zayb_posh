@@ -10,7 +10,7 @@ import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_textfield.dart';
 import 'signup_screen.dart';
 import 'forgot_password_screen.dart';
-import '../home/home_screen.dart';
+import '../main/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success) {
       Helpers.showSnackBar(context, AppStrings.loginSuccess);
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const MainScreen()),
       );
     } else {
       Helpers.showSnackBar(
@@ -73,7 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // Logo
                 Center(
                   child: Container(
                     width: 100,
@@ -105,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 32),
 
-                // Welcome Text
                 Text(
                   'Welcome Back!',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -126,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 40),
 
-                // Email Field
                 CustomTextField(
                   controller: _emailController,
                   label: AppStrings.email,
@@ -138,7 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 16),
 
-                // Password Field
                 CustomTextField(
                   controller: _passwordController,
                   label: AppStrings.password,
@@ -162,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 16),
 
-                // Remember Me & Forgot Password
+                // FIXED OVERFLOW HERE
                 Row(
                   children: [
                     Expanded(
@@ -192,7 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(),
+                            builder: (context) =>
+                            const ForgotPasswordScreen(),
                           ),
                         );
                       },
@@ -200,8 +197,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 32),
-                // Login Button
+
+                const SizedBox(height: 24),
+
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
                     return CustomButton(
@@ -214,7 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 24),
 
-                // Divider
                 Row(
                   children: [
                     const Expanded(child: Divider()),
@@ -222,7 +219,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         'OR',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        style:
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.textSecondary,
                         ),
                       ),
@@ -233,7 +231,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 24),
 
-                // Sign Up Link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -250,11 +247,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         AppStrings.signup,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
