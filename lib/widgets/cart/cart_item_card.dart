@@ -114,84 +114,99 @@ class CartItemCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Price
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          Helpers.formatCurrency(cartItem.product.price),
-                          style:
-                          Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        if (cartItem.product.hasDiscount)
-                          Text(
-                            Helpers.formatCurrency(
-                                cartItem.product.originalPrice!),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              color: AppColors.textLight,
-                            ),
-                          ),
-                      ],
-                    ),
-
-                    // Quantity Controls
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.grey300),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
+                    Flexible(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Decrease Button
-                          InkWell(
-                            onTap: onDecrease,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              child: Icon(
-                                cartItem.quantity == 1
-                                    ? Icons.delete_outline
-                                    : Icons.remove,
-                                size: 16,
-                                color: cartItem.quantity == 1
-                                    ? AppColors.error
-                                    : AppColors.textPrimary,
-                              ),
+                          Text(
+                            Helpers.formatCurrency(cartItem.product.price),
+                            style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary,
                             ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-
-                          // Quantity
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              '${cartItem.quantity}',
+                          if (cartItem.product.hasDiscount)
+                            Text(
+                              Helpers.formatCurrency(
+                                  cartItem.product.originalPrice!),
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleSmall
+                                  .bodySmall
                                   ?.copyWith(
-                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.lineThrough,
+                                color: AppColors.textLight,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-
-                          // Increase Button
-                          InkWell(
-                            onTap: onIncrease,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              child: const Icon(
-                                Icons.add,
-                                size: 16,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                          ),
                         ],
+                      ),
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    // Quantity Controls
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.grey300),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Decrease Button
+                            InkWell(
+                              onTap: onDecrease,
+                              child: Container(
+                                padding: const EdgeInsets.all(6),
+                                child: Icon(
+                                  cartItem.quantity == 1
+                                      ? Icons.delete_outline
+                                      : Icons.remove,
+                                  size: 14,
+                                  color: cartItem.quantity == 1
+                                      ? AppColors.error
+                                      : AppColors.textPrimary,
+                                ),
+                              ),
+                            ),
+
+                            // Quantity
+                            Flexible(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: Text(
+                                  '${cartItem.quantity}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+
+                            // Increase Button
+                            InkWell(
+                              onTap: onIncrease,
+                              child: Container(
+                                padding: const EdgeInsets.all(6),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 14,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

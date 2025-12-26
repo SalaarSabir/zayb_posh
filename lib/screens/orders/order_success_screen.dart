@@ -118,10 +118,11 @@ class OrderSuccessScreen extends StatelessWidget {
                 text: 'Track Order',
                 isOutlined: true,
                 onPressed: () {
-                  // TODO: Navigate to order tracking
-                  Scaffold.of(context).showSnackBar(
+                  // Show message for now (will implement in Module 6)
+                  ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Order tracking coming soon!'),
+                      content: Text('Order tracking will be available in your Orders section!'),
+                      duration: Duration(seconds: 2),
                     ),
                   );
                 },
@@ -133,6 +134,7 @@ class OrderSuccessScreen extends StatelessWidget {
               CustomButton(
                 text: 'Continue Shopping',
                 onPressed: () {
+                  // Navigate to MainScreen and clear all previous routes
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const MainScreen(),
@@ -192,8 +194,4 @@ class OrderSuccessScreen extends StatelessWidget {
       ],
     );
   }
-}
-
-extension on ScaffoldState {
-  void showSnackBar(SnackBar snackBar) {}
 }
