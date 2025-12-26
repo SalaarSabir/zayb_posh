@@ -1,9 +1,11 @@
 // lib/screens/products/product_detail_screen.dart
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/utils/helpers.dart';
 import '../../models/product_model.dart';
+import '../../providers/cart_provider.dart';
 import '../../widgets/common/custom_button.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -327,6 +329,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     icon: Icons.shopping_bag_outlined,
                     onPressed: widget.product.isInStock
                         ? () {
+                      final cart = Provider.of<CartProvider>(
+                        context,
+                        listen: false,
+                      );
+
+                      cart.addToCart(
+                        product: widget.product,
+                        selectedSize: selectedSize ?? '',
+                        selectedColor: selectedColor ?? '',
+                        quantity: quantity,
+                      );
+
                       Helpers.showSnackBar(
                         context,
                         AppStrings.productAddedToCart,

@@ -5,6 +5,7 @@ import 'core/theme/app_theme.dart';
 import 'core/constants/app_strings.dart';
 import 'providers/auth_provider.dart';
 import 'providers/product_provider.dart';
+import 'providers/cart_provider.dart';
 import 'screens/splash/splash_screen.dart';
 
 class ZaybPoshApp extends StatelessWidget {
@@ -16,6 +17,7 @@ class ZaybPoshApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
         // Add more providers here as needed
       ],
       child: MaterialApp(
