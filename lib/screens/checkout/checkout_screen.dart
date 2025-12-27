@@ -6,6 +6,7 @@ import '../../core/constants/app_strings.dart';
 import '../../core/utils/helpers.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/order_provider.dart';
 import '../../widgets/common/custom_button.dart';
 import '../orders/order_success_screen.dart';
 
@@ -388,19 +389,47 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       isProcessing = true;
     });
 
-    // Simulate order processing
-    await Future.delayed(const Duration(seconds: 2));
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final orderProvider = Provider.of<OrderProvider>(context, listen: false);
 
-    if (!mounted) return;
+    try {
+      // Place order
+      await orderProvider.placeOrder(
+        userId: auth.user?.uid ?? 'guest',
+        items: cart.items,
+        subtotal: cart.subtotal,
+        shippingCost: cart.shippingCost,
+        tax: cart.tax,
+        total: cart.total,
+        paymentMethod: selectedPaymentMethod,
+        deliveryName: auth.user?.name ?? 'Guest User',
+        deliveryPhone: auth.user?.phoneNumber ?? '+92 300 1234567',
+        deliveryAddress: 'House 123, Street 45, Sector F-7, Islamabad, Pakistan',
+      );
 
-    // Clear cart
-    cart.clearCart();
+      // Clear cart
+      cart.clearCart();
 
-    // Navigate to success screen
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const OrderSuccessScreen(),
-      ),
-    );
+      if (!mounted) return;
+
+      // Navigate to success screen
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const OrderSuccessScreen(),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        isProcessing = false;
+      });
+
+      Helpers.showSnackBar(
+        context,
+        'Failed to place order. Please try again.',
+        isError: true,
+      );
+    }
   }
 }
