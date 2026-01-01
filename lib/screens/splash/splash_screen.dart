@@ -1,7 +1,10 @@
 // lib/screens/splash/splash_screen.dart
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:async';
+import '../../providers/auth_provider.dart';
 import '../auth/login_screen.dart';
+import '../main/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -48,27 +51,32 @@ class _SplashScreenState extends State<SplashScreen>
     // Start animation
     _animationController.forward();
 
-    // Navigate to next screen after 3 seconds
-    Timer(const Duration(seconds: 3), () {
-      // TODO: Navigate to Login/Home screen
-      // For now, just showing a message
-      _navigateToNextScreen();
-    });
+    // Initialize auth and navigate after 3 seconds
+    _initializeAndNavigate();
   }
 
-  void _navigateToNextScreen() {
-    // Check if user is already logged in
-    if (mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            // In Module 4, we'll add proper routing logic here
-            // For now, always go to login screen
-            return const LoginScreen();
-          },
-        ),
-      );
-    }
+  Future<void> _initializeAndNavigate() async {
+    // Wait for splash animation
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    // Check if user is authenticated
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    await authProvider.initializeAuth();
+
+    if (!mounted) return;
+
+    // Navigate based on auth state
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) {
+          return authProvider.isAuthenticated
+              ? const MainScreen()
+              : const LoginScreen();
+        },
+      ),
+    );
   }
 
   @override
