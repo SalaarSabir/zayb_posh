@@ -11,6 +11,7 @@ import '../../widgets/common/custom_textfield.dart';
 import 'signup_screen.dart';
 import 'forgot_password_screen.dart';
 import '../main/main_screen.dart';
+import '../admin/admin_dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,9 +48,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (success) {
       Helpers.showSnackBar(context, AppStrings.loginSuccess);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MainScreen()),
-      );
+
+      // Check if user is admin and route accordingly
+      if (authProvider.user?.isAdmin == true) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const AdminDashboardScreen(),
+          ),
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const MainScreen()),
+        );
+      }
     } else {
       Helpers.showSnackBar(
         context,
@@ -158,7 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 16),
 
-                // FIXED OVERFLOW HERE
                 Row(
                   children: [
                     Expanded(
@@ -193,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: Text(AppStrings.forgotPassword),
+                      child: const Text(AppStrings.forgotPassword),
                     ),
                   ],
                 ),

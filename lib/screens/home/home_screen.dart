@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // Load products when screen opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ProductProvider>(context, listen: false).loadProducts();
+      Provider.of<ProductProvider>(context, listen: false).initializeProducts();
     });
   }
 

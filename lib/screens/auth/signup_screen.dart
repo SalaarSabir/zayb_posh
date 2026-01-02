@@ -9,7 +9,7 @@ import '../../providers/auth_provider.dart';
 import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_textfield.dart';
 import 'login_screen.dart';
-import '../main/main_screen.dart';
+import 'email_verification_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -60,9 +60,14 @@ class _SignupScreenState extends State<SignupScreen> {
     if (!mounted) return;
 
     if (success) {
-      Helpers.showSnackBar(context, AppStrings.signupSuccess);
+      Helpers.showSnackBar(context, 'Account created! Please verify your email.');
+      // Navigate to Email Verification Screen
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MainScreen()),
+        MaterialPageRoute(
+          builder: (context) => EmailVerificationScreen(
+            email: _emailController.text.trim(),
+          ),
+        ),
       );
     } else {
       Helpers.showSnackBar(
@@ -236,11 +241,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: RichText(
                           text: TextSpan(
                             style: Theme.of(context).textTheme.bodyMedium,
-                            children: [
-                              const TextSpan(text: 'I agree to '),
+                            children: const [
+                              TextSpan(text: 'I agree to '),
                               TextSpan(
                                 text: AppStrings.termsConditions,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -304,9 +309,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         AppStrings.login,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),

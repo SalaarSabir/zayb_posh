@@ -6,7 +6,6 @@ import '../../core/constants/app_strings.dart';
 import '../../core/utils/validators.dart';
 import '../../core/utils/helpers.dart';
 import '../../providers/auth_provider.dart';
-import '../../models/user_model.dart';
 import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_textfield.dart';
 

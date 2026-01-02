@@ -5,6 +5,8 @@ class UserModel {
   final String name;
   final String? phoneNumber;
   final String? photoUrl;
+  final bool isAdmin;
+  final bool isEmailVerified;
   final DateTime createdAt;
   final DateTime? updatedAt;
 
@@ -14,6 +16,8 @@ class UserModel {
     required this.name,
     this.phoneNumber,
     this.photoUrl,
+    this.isAdmin = false,
+    this.isEmailVerified = false,
     required this.createdAt,
     this.updatedAt,
   });
@@ -26,6 +30,8 @@ class UserModel {
       'name': name,
       'phoneNumber': phoneNumber,
       'photoUrl': photoUrl,
+      'isAdmin': isAdmin,
+      'isEmailVerified': isEmailVerified,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
     };
@@ -39,6 +45,8 @@ class UserModel {
       name: map['name'] ?? '',
       phoneNumber: map['phoneNumber'],
       photoUrl: map['photoUrl'],
+      isAdmin: map['isAdmin'] ?? false,
+      isEmailVerified: map['isEmailVerified'] ?? false,
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: map['updatedAt'] != null
           ? DateTime.parse(map['updatedAt'])
@@ -53,6 +61,8 @@ class UserModel {
     String? name,
     String? phoneNumber,
     String? photoUrl,
+    bool? isAdmin,
+    bool? isEmailVerified,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -62,6 +72,8 @@ class UserModel {
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       photoUrl: photoUrl ?? this.photoUrl,
+      isAdmin: isAdmin ?? this.isAdmin,
+      isEmailVerified: isEmailVerified ?? this.isEmailVerified,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -69,6 +81,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, email: $email, name: $name, phoneNumber: $phoneNumber)';
+    return 'UserModel(uid: $uid, email: $email, name: $name, isAdmin: $isAdmin, isEmailVerified: $isEmailVerified)';
   }
 }

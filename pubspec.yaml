@@ -24,6 +24,9 @@ dependencies:
     # Storage
   shared_preferences: ^2.3.4
 
+  firebase_storage: ^12.3.4  # For image upload
+  image_picker: ^1.0.7       # For picking images
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
