@@ -33,6 +33,9 @@ class AuthService {
       final User? user = userCredential.user;
       if (user == null) return null;
 
+      // Send verification email
+      await user.sendEmailVerification();
+
       // Update display name
       await user.updateDisplayName(name);
 
@@ -41,6 +44,8 @@ class AuthService {
         uid: user.uid,
         email: email,
         name: name,
+        isAdmin: false,
+        isEmailVerified: false,
         createdAt: DateTime.now(),
       );
 
@@ -58,6 +63,42 @@ class AuthService {
     }
   }
 
+  // Send email verification
+  Future<void> sendEmailVerification() async {
+    try {
+      final user = _auth.currentUser;
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+      }
+    } catch (e) {
+      throw 'Failed to send verification email.';
+    }
+  }
+
+  // Check if email is verified
+  Future<bool> checkEmailVerified() async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) return false;
+
+      await user.reload();
+      final refreshedUser = _auth.currentUser;
+
+      if (refreshedUser != null && refreshedUser.emailVerified) {
+        // Update Firestore
+        await _firestore.collection('users').doc(user.uid).update({
+          'isEmailVerified': true,
+          'updatedAt': DateTime.now().toIso8601String(),
+        });
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
   // Sign in with email and password
   Future<UserModel?> signIn({
     required String email,
@@ -71,6 +112,11 @@ class AuthService {
 
       final User? user = userCredential.user;
       if (user == null) return null;
+
+      // Check if email is verified
+      if (!user.emailVerified) {
+        throw 'Please verify your email before signing in.';
+      }
 
       // Get user data from Firestore
       final DocumentSnapshot doc = await _firestore
@@ -86,7 +132,7 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       throw _handleAuthException(e);
     } catch (e) {
-      throw 'An error occurred during sign in. Please try again.';
+      rethrow;
     }
   }
 

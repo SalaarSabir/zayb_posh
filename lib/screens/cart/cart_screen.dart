@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.shopping_cart_outlined,
                     size: 100,
                     color: AppColors.grey300,
@@ -171,7 +171,7 @@ class CartScreen extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.local_shipping_outlined,
                               color: AppColors.info,
                               size: 20,

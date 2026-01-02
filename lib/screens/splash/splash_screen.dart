@@ -5,6 +5,7 @@ import 'dart:async';
 import '../../providers/auth_provider.dart';
 import '../auth/login_screen.dart';
 import '../main/main_screen.dart';
+import '../admin/admin_dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -67,13 +68,20 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!mounted) return;
 
-    // Navigate based on auth state
+    // Navigate based on auth state and admin status
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          return authProvider.isAuthenticated
-              ? const MainScreen()
-              : const LoginScreen();
+          if (!authProvider.isAuthenticated) {
+            return const LoginScreen();
+          }
+
+          // Check if user is admin
+          if (authProvider.user?.isAdmin == true) {
+            return const AdminDashboardScreen();
+          }
+
+          return const MainScreen();
         },
       ),
     );

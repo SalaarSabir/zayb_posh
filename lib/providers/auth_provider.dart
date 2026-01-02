@@ -122,6 +122,46 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  // Resend verification email
+  Future<bool> resendVerificationEmail() async {
+    try {
+      _isLoading = true;
+      _errorMessage = null;
+      notifyListeners();
+
+      await _authService.sendEmailVerification();
+
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _errorMessage = e.toString();
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  // Check email verification status
+  Future<bool> checkEmailVerification() async {
+    try {
+      final isVerified = await _authService.checkEmailVerified();
+
+      if (isVerified && _user != null) {
+        _user = _user!.copyWith(
+          isEmailVerified: true,
+          updatedAt: DateTime.now(),
+        );
+        notifyListeners();
+      }
+
+      return isVerified;
+    } catch (e) {
+      _errorMessage = e.toString();
+      return false;
+    }
+  }
+
   // Update user data
   Future<bool> updateUser(UserModel updatedUser) async {
     try {

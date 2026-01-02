@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     width: 70,
                     height: 70,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
                         colors: [
