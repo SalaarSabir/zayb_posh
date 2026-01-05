@@ -50,7 +50,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.inventory_2_outlined,
                     size: 100,
                     color: AppColors.grey300,
