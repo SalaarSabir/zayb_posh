@@ -1,8 +1,8 @@
-// lib/widgets/product/product_card.dart
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/helpers.dart';
 import '../../models/product_model.dart';
+import '../../core/services/hive_storage_service.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -25,7 +25,7 @@ class ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: AppColors.shadow.withValues(alpha: 0.1),
+              color: AppColors.shadow.withOpacity(0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -34,7 +34,6 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// IMAGE - Fixed aspect ratio
             Expanded(
               flex: 5,
               child: AspectRatio(
@@ -49,12 +48,16 @@ class ProductCard extends StatelessWidget {
                         width: double.infinity,
                         height: double.infinity,
                         color: AppColors.grey100,
-                        alignment: Alignment.center,
-                        child: const Icon(
-                          Icons.image_outlined,
-                          size: 48,
-                          color: AppColors.grey300,
-                        ),
+                        child: product.images.isNotEmpty
+                            ? HiveStorageService.base64ToImage(
+                                HiveStorageService.getProductImage(product.images.first) ?? '',
+                                fit: BoxFit.cover,
+                              )
+                            : const Icon(
+                                Icons.image_outlined,
+                                size: 48,
+                                color: AppColors.grey300,
+                              ),
                       ),
                     ),
 
@@ -93,7 +96,7 @@ class ProductCard extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.shadow.withValues(alpha: 0.2),
+                              color: AppColors.shadow.withOpacity(0.2),
                               blurRadius: 4,
                             ),
                           ],
@@ -106,11 +109,9 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                ), 
               ),
             ),
-
-            /// INFO - Flexible content area
             Expanded(
               flex: 3,
               child: Padding(
@@ -119,7 +120,6 @@ class ProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Product name
                     Flexible(
                       child: Text(
                         product.name,
@@ -133,8 +133,6 @@ class ProductCard extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 4),
-
-                    /// RATING
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -162,8 +160,6 @@ class ProductCard extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 4),
-
-                    /// PRICE
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [

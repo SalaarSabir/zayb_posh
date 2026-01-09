@@ -1,4 +1,3 @@
-// lib/screens/auth/forgot_password_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -66,7 +65,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // Illustration Icon
                 Container(
                   width: 120,
                   height: 120,
@@ -83,7 +81,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 const SizedBox(height: 32),
 
-                // Title
                 Text(
                   AppStrings.resetPassword,
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
@@ -94,7 +91,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 const SizedBox(height: 12),
 
-                // Description
                 Text(
                   'Enter your email address and we\'ll send you a link to reset your password',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -105,7 +101,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 const SizedBox(height: 40),
 
-                // Email Field
                 CustomTextField(
                   controller: _emailController,
                   label: AppStrings.email,
@@ -117,7 +112,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 const SizedBox(height: 32),
 
-                // Send Reset Link Button
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
                     return CustomButton(
@@ -130,7 +124,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 const SizedBox(height: 24),
 
-                // Back to Login
                 Center(
                   child: TextButton(
                     onPressed: () {

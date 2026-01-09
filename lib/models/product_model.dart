@@ -1,4 +1,3 @@
-// lib/models/product_model.dart
 class ProductModel {
   final String id;
   final String name;
@@ -33,20 +32,12 @@ class ProductModel {
     this.reviewCount = 0,
     required this.createdAt,
   });
-
-  // Check if product is in stock
   bool get isInStock => stockQuantity > 0;
-
-  // Check if product has discount
   bool get hasDiscount => originalPrice != null && originalPrice! > price;
-
-  // Calculate discount percentage
   int get discountPercentage {
     if (!hasDiscount) return 0;
     return (((originalPrice! - price) / originalPrice!) * 100).round();
   }
-
-  // Convert ProductModel to Map (for Firestore)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -66,8 +57,6 @@ class ProductModel {
       'createdAt': createdAt.toIso8601String(),
     };
   }
-
-  // Create ProductModel from Map (from Firestore)
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map['id'] ?? '',
@@ -87,8 +76,6 @@ class ProductModel {
       createdAt: DateTime.parse(map['createdAt']),
     );
   }
-
-  // Create a copy with updated fields
   ProductModel copyWith({
     String? id,
     String? name,

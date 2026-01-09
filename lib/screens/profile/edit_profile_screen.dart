@@ -1,4 +1,3 @@
-// lib/screens/profile/edit_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -53,15 +52,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       });
       return;
     }
-
-    // Create updated user
     final updatedUser = currentUser.copyWith(
       name: _nameController.text.trim(),
       phoneNumber: _phoneController.text.trim(),
       updatedAt: DateTime.now(),
     );
-
-    // Simulate API call
     await Future.delayed(const Duration(seconds: 1));
 
     final success = await authProvider.updateUser(updatedUser);
@@ -106,7 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Container(
                     width: 100,
                     height: 100,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
                         colors: [
@@ -150,8 +145,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
 
               const SizedBox(height: 32),
-
-              // Email (Read Only)
               CustomTextField(
                 controller: TextEditingController(text: user?.email ?? ''),
                 label: AppStrings.email,
@@ -160,8 +153,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
 
               const SizedBox(height: 16),
-
-              // Name Field
               CustomTextField(
                 controller: _nameController,
                 label: AppStrings.fullName,
@@ -171,8 +162,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
 
               const SizedBox(height: 16),
-
-              // Phone Field
               CustomTextField(
                 controller: _phoneController,
                 label: AppStrings.phoneNumber,
@@ -186,8 +175,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
 
               const SizedBox(height: 32),
-
-              // Save Button
               CustomButton(
                 text: AppStrings.save,
                 isLoading: _isLoading,
@@ -195,8 +182,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
 
               const SizedBox(height: 16),
-
-              // Additional Info
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(

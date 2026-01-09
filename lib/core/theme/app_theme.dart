@@ -1,19 +1,13 @@
-// lib/core/theme/app_theme.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants/app_colors.dart';
 
 class AppTheme {
-  // Private constructor
   AppTheme._();
-
-  // Light Theme
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-
-      // Primary Colors
       primaryColor: AppColors.primary,
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
@@ -25,11 +19,7 @@ class AppTheme {
         onSurface: AppColors.textPrimary,
         onError: AppColors.white,
       ),
-
-      // Scaffold
       scaffoldBackgroundColor: AppColors.background,
-
-      // App Bar Theme
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.white,
         foregroundColor: AppColors.textPrimary,
@@ -46,8 +36,6 @@ class AppTheme {
           statusBarIconBrightness: Brightness.dark,
         ),
       ),
-
-      // Card Theme
       cardTheme: const CardThemeData(
         color: AppColors.white,
         elevation: 2,
@@ -56,8 +44,6 @@ class AppTheme {
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
       ),
-
-      // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
@@ -73,8 +59,6 @@ class AppTheme {
           ),
         ),
       ),
-
-      // Outlined Button Theme
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primary,
@@ -89,8 +73,6 @@ class AppTheme {
           ),
         ),
       ),
-
-      // Text Button Theme
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary,
@@ -101,14 +83,11 @@ class AppTheme {
           ),
         ),
       ),
-
-      // Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.grey50,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
-        // Border styles
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -129,27 +108,22 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.error, width: 2),
         ),
-
-        // Text styles
         labelStyle: const TextStyle(color: AppColors.textSecondary),
         hintStyle: const TextStyle(color: AppColors.textLight),
         errorStyle: const TextStyle(color: AppColors.error),
       ),
 
-      // Icon Theme
       iconTheme: const IconThemeData(
         color: AppColors.textPrimary,
         size: 24,
       ),
 
-      // Divider Theme
       dividerTheme: const DividerThemeData(
         color: AppColors.divider,
         thickness: 1,
         space: 1,
       ),
 
-      // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.white,
         selectedItemColor: AppColors.primary,
@@ -160,7 +134,6 @@ class AppTheme {
         elevation: 8,
       ),
 
-      // Chip Theme
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.grey100,
         selectedColor: AppColors.primary,
@@ -172,7 +145,6 @@ class AppTheme {
         ),
       ),
 
-      // Dialog Theme
       dialogTheme: const DialogThemeData(
         backgroundColor: AppColors.white,
         elevation: 8,
@@ -181,7 +153,6 @@ class AppTheme {
         ),
       ),
 
-      // Text Theme
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
@@ -261,15 +232,12 @@ class AppTheme {
       ),
     );
   }
-
-  // Dark Theme (Optional - for future use)
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.grey900,
-      // Add more dark theme configurations here
     );
   }
 }

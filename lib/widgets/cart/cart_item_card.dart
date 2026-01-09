@@ -1,6 +1,6 @@
-// lib/widgets/cart/cart_item_card.dart
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
+import '../../core/services/hive_storage_service.dart';
 import '../../core/utils/helpers.dart';
 import '../../models/cart_model.dart';
 
@@ -27,7 +27,7 @@ class CartItemCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow.withValues(alpha: 0.08),
+            color: AppColors.shadow.withOpacity(0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -36,49 +36,68 @@ class CartItemCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Product Image
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              width: 70,
+              height: 70,
               color: AppColors.grey100,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Icon(
+              child: cartItem.product.images.isNotEmpty
+                  ? HiveStorageService.base64ToImage(
+                HiveStorageService.getProductImage(
+                    cartItem.product.images.first) ??
+                    '',
+                fit: BoxFit.cover,
+              )
+                  : const Icon(
                 Icons.image_outlined,
-                size: 32,
+                size: 28,
                 color: AppColors.grey300,
               ),
             ),
           ),
 
-          const SizedBox(width: 12),
-
-          // Product Info
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Product Name
-                Text(
-                  cartItem.product.name,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        cartItem.product.name,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: onRemove,
+                      child: const Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Icon(
+                          Icons.close,
+                          size: 18,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
-                const SizedBox(height: 4),
-
-                // Size & Color
-                Row(
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 4,
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
+                        horizontal: 6,
+                        vertical: 3,
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.grey100,
@@ -86,14 +105,15 @@ class CartItemCard extends StatelessWidget {
                       ),
                       child: Text(
                         'Size: ${cartItem.selectedSize}',
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
+                        horizontal: 6,
+                        vertical: 3,
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.grey100,
@@ -101,141 +121,104 @@ class CartItemCard extends StatelessWidget {
                       ),
                       child: Text(
                         cartItem.selectedColor,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11,
+                        ),
                       ),
                     ),
                   ],
                 ),
 
                 const SizedBox(height: 8),
-
-                // Price & Quantity
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Price
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    Text(
+                      Helpers.formatCurrency(cartItem.product.price),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    if (cartItem.product.hasDiscount)
+                      Text(
+                        Helpers.formatCurrency(
+                            cartItem.product.originalPrice!),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          decoration: TextDecoration.lineThrough,
+                          color: AppColors.textLight,
+                        ),
+                      ),
+                  ],
+                ),
+
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.grey300),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            Helpers.formatCurrency(cartItem.product.price),
-                            style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
+                          InkWell(
+                            onTap: onDecrease,
+                            child: Container(
+                              padding: const EdgeInsets.all(6),
+                              child: Icon(
+                                cartItem.quantity == 1
+                                    ? Icons.delete_outline
+                                    : Icons.remove,
+                                size: 16,
+                                color: cartItem.quantity == 1
+                                    ? AppColors.error
+                                    : AppColors.textPrimary,
+                              ),
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
-                          if (cartItem.product.hasDiscount)
-                            Text(
-                              Helpers.formatCurrency(
-                                  cartItem.product.originalPrice!),
+                          Container(
+                            constraints: const BoxConstraints(minWidth: 28),
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Text(
+                              '${cartItem.quantity}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodySmall
+                                  .titleSmall
                                   ?.copyWith(
-                                decoration: TextDecoration.lineThrough,
-                                color: AppColors.textLight,
+                                fontWeight: FontWeight.bold,
                               ),
-                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             ),
+                          ),
+                          InkWell(
+                            onTap: onIncrease,
+                            child: Container(
+                              padding: const EdgeInsets.all(6),
+                              child: const Icon(
+                                Icons.add,
+                                size: 16,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(width: 8),
-
-                    // Quantity Controls
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.grey300),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Decrease Button
-                            InkWell(
-                              onTap: onDecrease,
-                              child: Container(
-                                padding: const EdgeInsets.all(6),
-                                child: Icon(
-                                  cartItem.quantity == 1
-                                      ? Icons.delete_outline
-                                      : Icons.remove,
-                                  size: 14,
-                                  color: cartItem.quantity == 1
-                                      ? AppColors.error
-                                      : AppColors.textPrimary,
-                                ),
-                              ),
-                            ),
-
-                            // Quantity
-                            Flexible(
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 4),
-                                child: Text(
-                                  '${cartItem.quantity}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-
-                            // Increase Button
-                            InkWell(
-                              onTap: onIncrease,
-                              child: Container(
-                                padding: const EdgeInsets.all(6),
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 14,
-                                  color: AppColors.textPrimary,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                    const Spacer(),
+                    Text(
+                      'Total: ${Helpers.formatCurrency(cartItem.totalPrice)}',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
                       ),
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 8),
-
-                // Total Price for this item
-                Text(
-                  'Total: ${Helpers.formatCurrency(cartItem.totalPrice)}',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
               ],
             ),
-          ),
-
-          // Remove Button
-          IconButton(
-            icon: const Icon(
-              Icons.close,
-              size: 20,
-              color: AppColors.textSecondary,
-            ),
-            onPressed: onRemove,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
           ),
         ],
       ),

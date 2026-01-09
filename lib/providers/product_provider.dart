@@ -1,4 +1,3 @@
-// lib/providers/product_provider.dart
 import 'package:flutter/material.dart';
 import 'dart:io';
 import '../models/product_model.dart';
@@ -14,21 +13,15 @@ class ProductProvider with ChangeNotifier {
   List<ProductModel> _newArrivals = [];
   bool _isLoading = false;
   String? _errorMessage;
-
-  // Getters
   List<ProductModel> get products => _products;
   List<CategoryModel> get categories => _categories;
   List<ProductModel> get featuredProducts => _featuredProducts;
   List<ProductModel> get newArrivals => _newArrivals;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
-
-  // Initialize and listen to real-time updates
   void initializeProducts() {
     _isLoading = true;
     notifyListeners();
-
-    // Listen to products stream
     _productService.getProductsStream().listen(
           (products) {
         _products = products;
@@ -45,8 +38,6 @@ class ProductProvider with ChangeNotifier {
       },
     );
   }
-
-  // Update categories based on products
   void _updateCategories() {
     final Map<String, int> categoryCount = {};
 
@@ -64,8 +55,6 @@ class ProductProvider with ChangeNotifier {
       );
     }).toList();
   }
-
-  // Get category icon
   String _getCategoryIcon(String category) {
     switch (category.toLowerCase()) {
       case 't-shirts':
@@ -88,13 +77,9 @@ class ProductProvider with ChangeNotifier {
         return '🛍️';
     }
   }
-
-  // Load products (kept for compatibility)
   Future<void> loadProducts() async {
     initializeProducts();
   }
-
-  // Add product (Admin)
   Future<bool> addProduct(ProductModel product, {File? imageFile}) async {
     try {
       _isLoading = true;
@@ -112,8 +97,6 @@ class ProductProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Update product (Admin)
   Future<bool> updateProduct(ProductModel product, {File? newImageFile}) async {
     try {
       _isLoading = true;
@@ -131,8 +114,6 @@ class ProductProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Delete product (Admin)
   Future<bool> deleteProduct(String productId) async {
     try {
       _isLoading = true;
@@ -150,13 +131,9 @@ class ProductProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Get products by category
   List<ProductModel> getProductsByCategory(String category) {
     return _products.where((p) => p.category == category).toList();
   }
-
-  // Search products
   Future<List<ProductModel>> searchProducts(String query) async {
     if (query.isEmpty) return _products;
 
@@ -169,7 +146,6 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
-  // Get product by ID
   ProductModel? getProductById(String id) {
     try {
       return _products.firstWhere((p) => p.id == id);
@@ -177,8 +153,6 @@ class ProductProvider with ChangeNotifier {
       return null;
     }
   }
-
-  // Clear error
   void clearError() {
     _errorMessage = null;
     notifyListeners();

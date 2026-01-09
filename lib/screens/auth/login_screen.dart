@@ -1,4 +1,3 @@
-// lib/screens/auth/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -49,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
     if (success) {
       Helpers.showSnackBar(context, AppStrings.loginSuccess);
 
-      // Check if user is admin and route accordingly
       if (authProvider.user?.isAdmin == true) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(

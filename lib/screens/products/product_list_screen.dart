@@ -1,4 +1,3 @@
-// lib/screens/products/product_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -19,8 +18,6 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-
-    // Get products based on category or show all
     final products = category != null
         ? productProvider.getProductsByCategory(category!)
         : productProvider.products;
@@ -35,7 +32,7 @@ class ProductListScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.shopping_bag_outlined,
               size: 80,
               color: AppColors.grey300,

@@ -17,35 +17,54 @@ dependencies:
   firebase_auth: ^5.3.3
   cloud_firestore: ^5.5.2
 
+  # Local Storage (Instead of Firebase Storage)
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.2
+
+  # Image Picker
+  image_picker: ^1.0.7
+
   # State Management
   provider: ^6.1.1
-  bloc: ^7.2.0
 
-    # Storage
+  # Storage
   shared_preferences: ^2.3.4
-
-  firebase_storage: ^12.3.4  # For image upload
-  image_picker: ^1.0.7       # For picking images
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.8
+
+# App Icon Configuration
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/icon/app_foreground.png"
+  adaptive_icon_background: "#2C5F5F"
+  adaptive_icon_foreground: "assets/icon/app_foreground.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true
+
+# Splash Screen Configuration
+flutter_native_splash:
+  color: "#2C5F5F"
+  image: assets/splash/splash.png
+  android: true
+  ios: false
+  android_12:
+    color: "#2C5F5F"
+    image: assets/splash/splash.png
 
 flutter:
   uses-material-design: true
 
-  # Assets (currently empty - we'll add images later)
-  # assets:
-  #   - assets/images/
-  #   - assets/icons/
-
-  # Fonts (commented out for now - we'll add custom fonts in Module 2)
-  # fonts:
-  #   - family: Poppins
-  #     fonts:
-  #       - asset: assets/fonts/Poppins-Regular.ttf
-  #       - asset: assets/fonts/Poppins-Medium.ttf
-  #         weight: 500
-  #       - asset: assets/fonts/Poppins-Bold.ttf
-  #         weight: 700
+  # Assets
+  assets:
+#    - assets/icon/app_icon.png
+    - assets/icon/app_foreground.png
+    - assets/splash/splash.png

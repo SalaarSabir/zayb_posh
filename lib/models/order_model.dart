@@ -1,4 +1,3 @@
-// lib/models/order_model.dart
 import 'cart_model.dart';
 
 class OrderModel {
@@ -35,16 +34,10 @@ class OrderModel {
     this.deliveredAt,
     this.trackingNumber,
   });
-
-  // Get total items count
   int get itemCount => items.length;
-
-  // Get total quantity
   int get totalQuantity {
     return items.fold(0, (sum, item) => sum + item.quantity);
   }
-
-  // Get status color
   String get statusColor {
     switch (status) {
       case OrderStatus.pending:
@@ -61,8 +54,6 @@ class OrderModel {
         return 'error';
     }
   }
-
-  // Get status text
   String get statusText {
     switch (status) {
       case OrderStatus.pending:
@@ -79,13 +70,9 @@ class OrderModel {
         return 'Cancelled';
     }
   }
-
-  // Can cancel order
   bool get canCancel {
     return status == OrderStatus.pending || status == OrderStatus.confirmed;
   }
-
-  // Convert OrderModel to Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -105,8 +92,6 @@ class OrderModel {
       'trackingNumber': trackingNumber,
     };
   }
-
-  // Create OrderModel from Map
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       id: map['id'] ?? '',

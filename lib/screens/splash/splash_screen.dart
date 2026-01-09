@@ -1,4 +1,3 @@
-// lib/screens/splash/splash_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
@@ -24,14 +23,11 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-
-    // Initialize animation controller
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     );
 
-    // Fade animation
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -39,8 +35,6 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _animationController,
       curve: Curves.easeIn,
     ));
-
-    // Scale animation
     _scaleAnimation = Tween<double>(
       begin: 0.5,
       end: 1.0,
@@ -48,35 +42,24 @@ class _SplashScreenState extends State<SplashScreen>
       parent: _animationController,
       curve: Curves.easeOutBack,
     ));
-
-    // Start animation
     _animationController.forward();
-
-    // Initialize auth and navigate after 3 seconds
     _initializeAndNavigate();
   }
 
   Future<void> _initializeAndNavigate() async {
-    // Wait for splash animation
     await Future.delayed(const Duration(seconds: 3));
 
     if (!mounted) return;
-
-    // Check if user is authenticated
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     await authProvider.initializeAuth();
 
     if (!mounted) return;
-
-    // Navigate based on auth state and admin status
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
           if (!authProvider.isAuthenticated) {
             return const LoginScreen();
           }
-
-          // Check if user is admin
           if (authProvider.user?.isAdmin == true) {
             return const AdminDashboardScreen();
           }
@@ -137,8 +120,6 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
 
                     const SizedBox(height: 30),
-
-                    // App Name
                     const Text(
                       'ZAYB-POSH',
                       style: TextStyle(
@@ -150,8 +131,6 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
 
                     const SizedBox(height: 8),
-
-                    // Tagline
                     Text(
                       'Elevate Your Style',
                       style: TextStyle(
@@ -162,8 +141,6 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
 
                     const SizedBox(height: 50),
-
-                    // Loading indicator
                     const SizedBox(
                       width: 40,
                       height: 40,

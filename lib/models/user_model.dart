@@ -1,4 +1,3 @@
-// lib/models/user_model.dart
 class UserModel {
   final String uid;
   final String email;
@@ -21,8 +20,6 @@ class UserModel {
     required this.createdAt,
     this.updatedAt,
   });
-
-  // Convert UserModel to Map (for Firestore)
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
@@ -36,8 +33,6 @@ class UserModel {
       'updatedAt': updatedAt?.toIso8601String(),
     };
   }
-
-  // Create UserModel from Map (from Firestore)
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       uid: map['uid'] ?? '',
@@ -53,8 +48,6 @@ class UserModel {
           : null,
     );
   }
-
-  // Create a copy with updated fields
   UserModel copyWith({
     String? uid,
     String? email,

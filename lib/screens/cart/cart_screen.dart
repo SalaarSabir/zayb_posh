@@ -1,4 +1,3 @@
-// lib/screens/cart/cart_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -61,8 +60,7 @@ class CartScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      // Navigate to home tab
-                      // Will be handled by MainScreen bottom navigation
+
                     },
                     child: const Text(AppStrings.continueShopping),
                   ),
@@ -73,7 +71,6 @@ class CartScreen extends StatelessWidget {
 
           return Column(
             children: [
-              // Cart Items List
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
@@ -92,8 +89,6 @@ class CartScreen extends StatelessWidget {
                   },
                 ),
               ),
-
-              // Cart Summary
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -108,7 +103,6 @@ class CartScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    // Subtotal
                     _buildSummaryRow(
                       context,
                       AppStrings.subtotal,
@@ -116,7 +110,6 @@ class CartScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
 
-                    // Shipping
                     _buildSummaryRow(
                       context,
                       AppStrings.shipping,
@@ -128,7 +121,6 @@ class CartScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
 
-                    // Tax
                     _buildSummaryRow(
                       context,
                       AppStrings.tax,
@@ -137,7 +129,6 @@ class CartScreen extends StatelessWidget {
 
                     const Divider(height: 24),
 
-                    // Total
                     _buildSummaryRow(
                       context,
                       AppStrings.total,
@@ -146,8 +137,6 @@ class CartScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 16),
-
-                    // Checkout Button
                     CustomButton(
                       text: AppStrings.proceedToCheckout,
                       onPressed: () {
@@ -159,8 +148,6 @@ class CartScreen extends StatelessWidget {
                         );
                       },
                     ),
-
-                    // Free Shipping Message
                     if (cart.subtotal < 5000) ...[
                       const SizedBox(height: 12),
                       Container(

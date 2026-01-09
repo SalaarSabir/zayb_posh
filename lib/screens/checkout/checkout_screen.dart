@@ -1,4 +1,3 @@
-// lib/screens/checkout/checkout_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -45,7 +44,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Delivery Address Section
                   _buildSectionTitle(context, 'Delivery Address'),
                   const SizedBox(height: 12),
                   _buildAddressCard(
@@ -58,22 +56,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
 
                   const SizedBox(height: 24),
-
-                  // Order Summary Section
                   _buildSectionTitle(context, AppStrings.orderSummary),
                   const SizedBox(height: 12),
                   _buildOrderSummaryCard(context, cart),
 
                   const SizedBox(height: 24),
-
-                  // Payment Method Section
                   _buildSectionTitle(context, AppStrings.paymentMethod),
                   const SizedBox(height: 12),
                   _buildPaymentMethodsCard(context),
 
                   const SizedBox(height: 24),
-
-                  // Order Items Preview
                   _buildSectionTitle(
                       context, 'Items (${cart.totalQuantity})'),
                   const SizedBox(height: 12),
@@ -88,8 +80,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
             ),
           ),
-
-          // Bottom Bar - Place Order
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -393,7 +383,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
 
     try {
-      // Place order
       await orderProvider.placeOrder(
         userId: auth.user?.uid ?? 'guest',
         items: cart.items,
@@ -406,13 +395,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         deliveryPhone: auth.user?.phoneNumber ?? '+92 300 1234567',
         deliveryAddress: 'House 123, Street 45, Sector F-7, Islamabad, Pakistan',
       );
-
-      // Clear cart
       cart.clearCart();
 
       if (!mounted) return;
-
-      // Navigate to success screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const OrderSuccessScreen(),

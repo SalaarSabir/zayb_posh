@@ -1,6 +1,4 @@
-// lib/models/cart_model.dart
 import 'product_model.dart';
-
 class CartItemModel {
   final String id;
   final ProductModel product;
@@ -16,10 +14,7 @@ class CartItemModel {
     this.quantity = 1,
   });
 
-  // Calculate total price for this item
   double get totalPrice => product.price * quantity;
-
-  // Convert CartItemModel to Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -29,8 +24,6 @@ class CartItemModel {
       'quantity': quantity,
     };
   }
-
-  // Create CartItemModel from Map
   factory CartItemModel.fromMap(Map<String, dynamic> map) {
     return CartItemModel(
       id: map['id'] ?? '',
@@ -40,8 +33,6 @@ class CartItemModel {
       quantity: map['quantity'] ?? 1,
     );
   }
-
-  // Create a copy with updated fields
   CartItemModel copyWith({
     String? id,
     ProductModel? product,

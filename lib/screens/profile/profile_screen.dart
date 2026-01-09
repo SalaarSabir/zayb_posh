@@ -1,9 +1,10 @@
-// lib/screens/profile/profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
 import '../../providers/auth_provider.dart';
+import '../wishlist/wishlist_screen.dart';
+import 'addresses_screen.dart';
 import 'edit_profile_screen.dart';
 import '../orders/orders_screen.dart';
 import '../auth/login_screen.dart';
@@ -33,7 +34,6 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Profile Header
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -42,7 +42,6 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  // Profile Picture
                   Container(
                     width: 70,
                     height: 70,
@@ -105,8 +104,6 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 24),
-
-            // Menu Items
             _buildMenuItem(
               context,
               icon: Icons.shopping_bag_outlined,
@@ -125,7 +122,12 @@ class ProfileScreen extends StatelessWidget {
               icon: Icons.favorite_border,
               title: AppStrings.wishlist,
               onTap: () {
-                // TODO: Navigate to wishlist
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WishlistScreen(), // Import at top
+                  ),
+                );
               },
             ),
             _buildMenuItem(
@@ -133,7 +135,12 @@ class ProfileScreen extends StatelessWidget {
               icon: Icons.location_on_outlined,
               title: AppStrings.address,
               onTap: () {
-                // TODO: Navigate to addresses
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddressesScreen(), // Import at top
+                  ),
+                );
               },
             ),
             _buildMenuItem(
@@ -177,10 +184,8 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 16),
-
-            // App Version
             Text(
-              'Version 1.0.0',
+              'Version 4.2.0',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: AppColors.textLight,
               ),

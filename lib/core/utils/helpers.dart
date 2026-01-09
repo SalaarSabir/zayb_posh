@@ -1,12 +1,9 @@
-// lib/core/utils/helpers.dart
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Helpers {
-  // Private constructor
   Helpers._();
-
-  // Format currency (PKR)
   static String formatCurrency(double amount) {
     final formatter = NumberFormat.currency(
       symbol: 'Rs. ',
@@ -15,23 +12,16 @@ class Helpers {
     );
     return formatter.format(amount);
   }
-
-  // Format date
   static String formatDate(DateTime date) {
     return DateFormat('dd MMM yyyy').format(date);
   }
-
-  // Format date with time
   static String formatDateTime(DateTime dateTime) {
     return DateFormat('dd MMM yyyy, hh:mm a').format(dateTime);
   }
 
-  // Format time
   static String formatTime(DateTime time) {
     return DateFormat('hh:mm a').format(time);
   }
-
-  // Get time ago (e.g., "2 hours ago")
   static String getTimeAgo(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
@@ -52,8 +42,6 @@ class Helpers {
       return 'Just now';
     }
   }
-
-  // Show snackbar
   static void showSnackBar(BuildContext context, String message, {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -68,8 +56,6 @@ class Helpers {
       ),
     );
   }
-
-  // Show loading dialog
   static void showLoadingDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -79,13 +65,10 @@ class Helpers {
       ),
     );
   }
-
-  // Hide loading dialog
   static void hideLoadingDialog(BuildContext context) {
     Navigator.of(context).pop();
   }
 
-  // Show confirmation dialog
   static Future<bool> showConfirmDialog(
       BuildContext context, {
         required String title,
@@ -113,37 +96,30 @@ class Helpers {
     return result ?? false;
   }
 
-  // Calculate discount percentage
   static int calculateDiscountPercentage(double originalPrice, double discountedPrice) {
     if (originalPrice <= 0) return 0;
     final discount = ((originalPrice - discountedPrice) / originalPrice) * 100;
     return discount.round();
   }
 
-  // Truncate text with ellipsis
   static String truncateText(String text, int maxLength) {
     if (text.length <= maxLength) return text;
     return '${text.substring(0, maxLength)}...';
   }
 
-  // Capitalize first letter
   static String capitalizeFirst(String text) {
     if (text.isEmpty) return text;
     return text[0].toUpperCase() + text.substring(1).toLowerCase();
   }
 
-  // Capitalize each word
   static String capitalizeWords(String text) {
     if (text.isEmpty) return text;
     return text.split(' ').map((word) => capitalizeFirst(word)).join(' ');
   }
 
-  // Generate unique ID
   static String generateId() {
     return DateTime.now().millisecondsSinceEpoch.toString();
   }
-
-  // Check if email is valid
   static bool isValidEmail(String email) {
     final emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
@@ -151,20 +127,15 @@ class Helpers {
     return emailRegex.hasMatch(email);
   }
 
-  // Format phone number (Pakistani)
   static String formatPhoneNumber(String phone) {
     // Remove all non-digit characters
     final cleaned = phone.replaceAll(RegExp(r'\D'), '');
-
-    // Format as: 0XXX-XXXXXXX
     if (cleaned.length == 11 && cleaned.startsWith('0')) {
       return '${cleaned.substring(0, 4)}-${cleaned.substring(4)}';
     }
 
     return phone;
   }
-
-  // Get greeting based on time
   static String getGreeting() {
     final hour = DateTime.now().hour;
 
@@ -178,8 +149,6 @@ class Helpers {
       return 'Good Night';
     }
   }
-
-  // Parse color from hex string
   static Color parseColor(String hexColor) {
     hexColor = hexColor.replaceAll('#', '');
     if (hexColor.length == 6) {
@@ -187,8 +156,6 @@ class Helpers {
     }
     return Color(int.parse(hexColor, radix: 16));
   }
-
-  // Get initials from name
   static String getInitials(String name) {
     final words = name.trim().split(' ');
     if (words.isEmpty) return '';

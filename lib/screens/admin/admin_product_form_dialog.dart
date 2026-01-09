@@ -1,4 +1,3 @@
-// lib/screens/admin/admin_product_form_dialog.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,7 +11,7 @@ import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/custom_textfield.dart';
 
 class AdminProductFormDialog extends StatefulWidget {
-  final ProductModel? product; // null for add, product for edit
+  final ProductModel? product;
 
   const AdminProductFormDialog({
     super.key,
@@ -191,9 +190,9 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
             // Header
             Container(
               padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.primary,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
               ),
               child: Row(
                 children: [
@@ -284,8 +283,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
                       ),
 
                       const SizedBox(height: 16),
-
-                      // Description
                       CustomTextField(
                         controller: _descriptionController,
                         label: 'Description',
@@ -295,8 +292,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
                       ),
 
                       const SizedBox(height: 16),
-
-                      // Category Dropdown
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -308,7 +303,7 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
                           ),
                           const SizedBox(height: 8),
                           DropdownButtonFormField<String>(
-                            value: _selectedCategory,
+                            initialValue: _selectedCategory,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.grey50,
@@ -371,7 +366,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
 
                       const SizedBox(height: 16),
 
-                      // Rating & Reviews
                       Row(
                         children: [
                           Expanded(
@@ -396,7 +390,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
 
                       const SizedBox(height: 16),
 
-                      // Sizes
                       _buildListInput(
                         'Sizes',
                         _sizes,
@@ -405,7 +398,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
 
                       const SizedBox(height: 16),
 
-                      // Colors
                       _buildListInput(
                         'Colors',
                         _colors,
@@ -414,7 +406,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
 
                       const SizedBox(height: 16),
 
-                      // Checkboxes
                       CheckboxListTile(
                         title: const Text('Featured Product'),
                         value: _isFeatured,
@@ -439,7 +430,6 @@ class _AdminProductFormDialogState extends State<AdminProductFormDialog> {
 
                       const SizedBox(height: 24),
 
-                      // Submit Button
                       CustomButton(
                         text: widget.product == null ? 'Add Product' : 'Update Product',
                         isLoading: _isLoading,

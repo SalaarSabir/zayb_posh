@@ -1,4 +1,3 @@
-// lib/screens/admin/admin_dashboard_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -20,7 +19,6 @@ class AdminDashboardScreen extends StatelessWidget {
     final orderProvider = Provider.of<OrderProvider>(context);
     final user = authProvider.user;
 
-    // If not admin, show access denied
     if (user == null || !user.isAdmin) {
       return _buildAccessDenied(context);
     }

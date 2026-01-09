@@ -1,6 +1,7 @@
-// lib/app.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zaybposh/providers/address_provider.dart';
+import 'package:zaybposh/providers/wishlist_provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_strings.dart';
 import 'providers/auth_provider.dart';
@@ -20,20 +21,13 @@ class ZaybPoshApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => OrderProvider()),
-        // Add more providers here as needed
+        ChangeNotifierProvider(create: (_) => WishlistProvider()),
+        ChangeNotifierProvider(create: (_) => AddressProvider()),
       ],
       child: MaterialApp(
         title: AppStrings.appName,
         debugShowCheckedModeBanner: false,
-
-        // Use custom theme
         theme: AppTheme.lightTheme,
-
-        // Dark theme (optional - for future)
-        // darkTheme: AppTheme.darkTheme,
-        // themeMode: ThemeMode.system,
-
-        // Starting screen
         home: const SplashScreen(),
       ),
     );

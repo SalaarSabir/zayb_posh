@@ -1,15 +1,9 @@
-// lib/core/utils/validators.dart
 class Validators {
-  // Private constructor
   Validators._();
-
-  // Email validation
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
     }
-
-    // Email regex pattern
     final emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );
@@ -20,8 +14,6 @@ class Validators {
 
     return null;
   }
-
-  // Password validation
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required';
@@ -33,8 +25,6 @@ class Validators {
 
     return null;
   }
-
-  // Confirm password validation
   static String? validateConfirmPassword(String? value, String password) {
     if (value == null || value.isEmpty) {
       return 'Please confirm your password';
@@ -46,8 +36,6 @@ class Validators {
 
     return null;
   }
-
-  // Name validation
   static String? validateName(String? value) {
     if (value == null || value.isEmpty) {
       return 'Name is required';
@@ -59,17 +47,11 @@ class Validators {
 
     return null;
   }
-
-  // Phone number validation
   static String? validatePhone(String? value) {
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
     }
-
-    // Remove spaces and dashes
     final cleanNumber = value.replaceAll(RegExp(r'[\s-]'), '');
-
-    // Check if it's a valid Pakistani number (11 digits starting with 0)
     final phoneRegex = RegExp(r'^0[0-9]{10}$');
 
     if (!phoneRegex.hasMatch(cleanNumber)) {
@@ -78,16 +60,12 @@ class Validators {
 
     return null;
   }
-
-  // Required field validation
   static String? validateRequired(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required';
     }
     return null;
   }
-
-  // Minimum length validation
   static String? validateMinLength(String? value, int minLength, String fieldName) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required';
@@ -99,16 +77,12 @@ class Validators {
 
     return null;
   }
-
-  // Maximum length validation
   static String? validateMaxLength(String? value, int maxLength, String fieldName) {
     if (value != null && value.length > maxLength) {
       return '$fieldName must not exceed $maxLength characters';
     }
     return null;
   }
-
-  // Numeric validation
   static String? validateNumeric(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required';
@@ -120,8 +94,6 @@ class Validators {
 
     return null;
   }
-
-  // Price validation
   static String? validatePrice(String? value) {
     if (value == null || value.isEmpty) {
       return 'Price is required';
@@ -134,14 +106,10 @@ class Validators {
 
     return null;
   }
-
-  // Postal code validation
   static String? validatePostalCode(String? value) {
     if (value == null || value.isEmpty) {
       return 'Postal code is required';
     }
-
-    // Pakistani postal codes are 5 digits
     final postalRegex = RegExp(r'^[0-9]{5}$');
 
     if (!postalRegex.hasMatch(value)) {
@@ -150,8 +118,6 @@ class Validators {
 
     return null;
   }
-
-  // URL validation
   static String? validateUrl(String? value) {
     if (value == null || value.isEmpty) {
       return null; // URL is optional in most cases

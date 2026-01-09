@@ -1,4 +1,3 @@
-// lib/providers/auth_provider.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../core/services/auth_service.dart';
@@ -10,22 +9,16 @@ class AuthProvider with ChangeNotifier {
   UserModel? _user;
   bool _isLoading = false;
   String? _errorMessage;
-
-  // Getters
   UserModel? get user => _user;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   bool get isAuthenticated => _user != null;
-
-  // Initialize auth state
   Future<void> initializeAuth() async {
     final User? currentUser = _authService.currentUser;
     if (currentUser != null) {
       await loadUserData(currentUser.uid);
     }
   }
-
-  // Load user data from Firestore
   Future<void> loadUserData(String uid) async {
     try {
       _user = await _authService.getUserData(uid);
@@ -35,8 +28,6 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  // Sign up
   Future<bool> signUp({
     required String email,
     required String password,
@@ -63,8 +54,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Sign in
   Future<bool> signIn({
     required String email,
     required String password,
@@ -89,8 +78,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Sign out
   Future<void> signOut() async {
     try {
       await _authService.signOut();
@@ -101,8 +88,6 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  // Send password reset email
   Future<bool> sendPasswordResetEmail(String email) async {
     try {
       _isLoading = true;
@@ -121,8 +106,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Resend verification email
   Future<bool> resendVerificationEmail() async {
     try {
       _isLoading = true;
@@ -141,8 +124,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Check email verification status
   Future<bool> checkEmailVerification() async {
     try {
       final isVerified = await _authService.checkEmailVerified();
@@ -161,8 +142,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Update user data
   Future<bool> updateUser(UserModel updatedUser) async {
     try {
       _isLoading = true;
@@ -182,8 +161,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Change password
   Future<bool> changePassword({
     required String currentPassword,
     required String newPassword,
@@ -208,8 +185,6 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
-
-  // Clear error message
   void clearError() {
     _errorMessage = null;
     notifyListeners();

@@ -1,4 +1,3 @@
-// lib/screens/admin/admin_products_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -50,7 +49,7 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.inventory_2_outlined,
                     size: 100,
                     color: AppColors.grey300,
@@ -143,7 +142,6 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
 
           const SizedBox(width: 16),
 
-          // Product Info
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,7 +303,6 @@ class _AdminProductsScreenState extends State<AdminProductsScreen> {
             onPressed: () async {
               Navigator.pop(context);
 
-              // Show loading
               Helpers.showLoadingDialog(context);
 
               final success = await provider.deleteProduct(product.id);

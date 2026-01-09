@@ -1,4 +1,3 @@
-// lib/screens/auth/signup_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -61,7 +60,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (success) {
       Helpers.showSnackBar(context, 'Account created! Please verify your email.');
-      // Navigate to Email Verification Screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => EmailVerificationScreen(
@@ -92,7 +90,6 @@ class _SignupScreenState extends State<SignupScreen> {
               children: [
                 const SizedBox(height: 20),
 
-                // Logo
                 Center(
                   child: Container(
                     width: 80,
@@ -123,8 +120,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
 
                 const SizedBox(height: 24),
-
-                // Create Account Text
                 Text(
                   'Create Account',
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -145,7 +140,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 32),
 
-                // Name Field
                 CustomTextField(
                   controller: _nameController,
                   label: AppStrings.fullName,
@@ -156,7 +150,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 16),
 
-                // Email Field
                 CustomTextField(
                   controller: _emailController,
                   label: AppStrings.email,
@@ -168,7 +161,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 16),
 
-                // Password Field
                 CustomTextField(
                   controller: _passwordController,
                   label: AppStrings.password,
@@ -192,7 +184,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 16),
 
-                // Confirm Password Field
                 CustomTextField(
                   controller: _confirmPasswordController,
                   label: AppStrings.confirmPassword,
@@ -218,8 +209,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
 
                 const SizedBox(height: 16),
-
-                // Terms & Conditions
                 Row(
                   children: [
                     Checkbox(
@@ -259,8 +248,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
 
                 const SizedBox(height: 24),
-
-                // Sign Up Button
                 Consumer<AuthProvider>(
                   builder: (context, authProvider, child) {
                     return CustomButton(
@@ -273,7 +260,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 24),
 
-                // Divider
                 Row(
                   children: [
                     const Expanded(child: Divider()),
@@ -292,7 +278,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 24),
 
-                // Login Link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

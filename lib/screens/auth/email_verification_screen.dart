@@ -1,4 +1,3 @@
-// lib/screens/auth/email_verification_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
@@ -145,7 +144,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               const SizedBox(height: 32),
 
-              // Title
               Text(
                 'Verify Your Email',
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
@@ -156,7 +154,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               const SizedBox(height: 16),
 
-              // Description
+
               Text(
                 'We\'ve sent a verification link to',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -167,7 +165,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               const SizedBox(height: 8),
 
-              // Email
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -189,7 +186,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               const SizedBox(height: 32),
 
-              // Instructions
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -231,7 +227,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               const SizedBox(height: 32),
 
-              // Check Verification Button
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -262,7 +257,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
               const SizedBox(height: 16),
 
-              // Resend Email Button
               TextButton(
                 onPressed: _resendCooldown > 0 || _isResending
                     ? null
@@ -285,8 +279,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               ),
 
               const SizedBox(height: 24),
-
-              // Spam Folder Note
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(

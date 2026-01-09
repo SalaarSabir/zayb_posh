@@ -1,4 +1,3 @@
-// lib/screens/orders/order_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/constants/app_colors.dart';
@@ -31,7 +30,6 @@ class OrderDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Order Information
             _buildInfoCard(
               context,
               title: 'Order Information',
@@ -54,8 +52,6 @@ class OrderDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 16),
-
-            // Delivery Information
             _buildInfoCard(
               context,
               title: 'Delivery Information',
@@ -73,8 +69,6 @@ class OrderDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 16),
-
-            // Order Items (Placeholder - since dummy orders don't have items)
             _buildInfoCard(
               context,
               title: 'Order Summary',
@@ -100,8 +94,6 @@ class OrderDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 16),
-
-            // Track Order Timeline
             if (order.status != OrderStatus.cancelled) _buildTimelineCard(context),
           ],
         ),

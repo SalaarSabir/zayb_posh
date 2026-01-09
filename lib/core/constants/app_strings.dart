@@ -1,18 +1,11 @@
-// lib/core/constants/app_strings.dart
 class AppStrings {
-  // Private constructor
   AppStrings._();
-
-  // App Info
   static const String appName = 'ZAYB-POSH';
   static const String appTagline = 'Elevate Your Style';
 
-  // Onboarding
   static const String skip = 'Skip';
   static const String next = 'Next';
   static const String getStarted = 'Get Started';
-
-  // Authentication
   static const String login = 'Login';
   static const String signup = 'Sign Up';
   static const String logout = 'Logout';
@@ -26,7 +19,6 @@ class AppStrings {
   static const String resetPassword = 'Reset Password';
   static const String sendResetLink = 'Send Reset Link';
 
-  // Profile
   static const String profile = 'Profile';
   static const String editProfile = 'Edit Profile';
   static const String fullName = 'Full Name';
@@ -35,8 +27,6 @@ class AppStrings {
   static const String changePassword = 'Change Password';
   static const String oldPassword = 'Old Password';
   static const String newPassword = 'New Password';
-
-  // Home
   static const String home = 'Home';
   static const String searchProducts = 'Search Products';
   static const String categories = 'Categories';
@@ -45,7 +35,6 @@ class AppStrings {
   static const String popularProducts = 'Popular Products';
   static const String seeAll = 'See All';
 
-  // Products
   static const String products = 'Products';
   static const String productDetails = 'Product Details';
   static const String price = 'Price';
@@ -59,8 +48,6 @@ class AppStrings {
   static const String buyNow = 'Buy Now';
   static const String reviews = 'Reviews';
   static const String ratings = 'Ratings';
-
-  // Cart
   static const String cart = 'Cart';
   static const String myCart = 'My Cart';
   static const String cartEmpty = 'Your cart is empty';
@@ -73,7 +60,6 @@ class AppStrings {
   static const String total = 'Total';
   static const String proceedToCheckout = 'Proceed to Checkout';
 
-  // Checkout
   static const String checkout = 'Checkout';
   static const String shippingAddress = 'Shipping Address';
   static const String paymentMethod = 'Payment Method';
@@ -83,7 +69,6 @@ class AppStrings {
   static const String creditCard = 'Credit Card';
   static const String debitCard = 'Debit Card';
 
-  // Orders
   static const String orders = 'Orders';
   static const String myOrders = 'My Orders';
   static const String orderDetails = 'Order Details';
@@ -93,15 +78,12 @@ class AppStrings {
   static const String trackOrder = 'Track Order';
   static const String cancelOrder = 'Cancel Order';
 
-  // Order Status
   static const String pending = 'Pending';
   static const String confirmed = 'Confirmed';
   static const String processing = 'Processing';
   static const String shipped = 'Shipped';
   static const String delivered = 'Delivered';
   static const String cancelled = 'Cancelled';
-
-  // Settings
   static const String settings = 'Settings';
   static const String notifications = 'Notifications';
   static const String language = 'Language';
@@ -146,7 +128,6 @@ class AppStrings {
   static const String passwordMismatch = 'Passwords do not match';
   static const String fieldRequired = 'This field is required';
 
-  // Success Messages
   static const String loginSuccess = 'Login successful!';
   static const String signupSuccess = 'Account created successfully!';
   static const String passwordResetSuccess = 'Password reset link sent!';

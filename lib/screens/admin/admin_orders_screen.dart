@@ -1,4 +1,3 @@
-// lib/screens/admin/admin_orders_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -152,7 +151,6 @@ class AdminOrdersScreen extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // Order Details
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

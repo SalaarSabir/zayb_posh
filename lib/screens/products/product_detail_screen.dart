@@ -1,4 +1,3 @@
-// lib/screens/products/product_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -60,14 +59,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product Image
                   Container(
                     height: 400,
                     width: double.infinity,
                     color: AppColors.grey100,
                     child: Stack(
                       children: [
-                        Center(
+                        const Center(
                           child: Icon(
                             Icons.image_outlined,
                             size: 100,
@@ -106,7 +104,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Product Name
                         Text(
                           widget.product.name,
                           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -115,8 +112,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
 
                         const SizedBox(height: 8),
-
-                        // Rating & Reviews
                         Row(
                           children: [
                             const Icon(Icons.star, color: AppColors.rating, size: 20),
@@ -139,7 +134,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                         const SizedBox(height: 16),
 
-                        // Price
                         Row(
                           children: [
                             Text(
@@ -163,8 +157,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
 
                         const SizedBox(height: 24),
-
-                        // Size Selection
                         if (widget.product.sizes.isNotEmpty) ...[
                           Text(
                             AppStrings.size,
@@ -209,8 +201,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           const SizedBox(height: 24),
                         ],
-
-                        // Color Selection
                         if (widget.product.colors.isNotEmpty) ...[
                           Text(
                             AppStrings.color,
@@ -255,8 +245,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           const SizedBox(height: 24),
                         ],
-
-                        // Description
                         Text(
                           AppStrings.description,
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -273,8 +261,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
 
                         const SizedBox(height: 24),
-
-                        // Stock Status
                         Row(
                           children: [
                             Icon(
@@ -308,7 +294,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
 
-          // Bottom Bar
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(

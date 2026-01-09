@@ -1,4 +1,3 @@
-// lib/screens/orders/orders_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -20,12 +19,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   void initState() {
     super.initState();
-    // Load orders when screen opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final auth = Provider.of<AuthProvider>(context, listen: false);
-      final orders = Provider.of<OrderProvider>(context, listen: false);
       if (auth.user != null) {
-        orders.loadDummyOrders(auth.user!.uid);
+        Provider.of<OrderProvider>(context, listen: false)
+            .initializeOrders(auth.user!.uid);
       }
     });
   }
@@ -48,7 +46,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.receipt_long_outlined,
                     size: 100,
                     color: AppColors.grey300,
@@ -119,7 +117,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Order Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -150,7 +147,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
             const Divider(height: 24),
 
-            // Order Info
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -169,7 +165,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
             const SizedBox(height: 12),
 
-            // Total Amount
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -188,8 +183,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
 
             const SizedBox(height: 12),
-
-            // Action Buttons
             Row(
               children: [
                 Expanded(

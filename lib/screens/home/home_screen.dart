@@ -1,4 +1,3 @@
-// lib/screens/home/home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -24,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Load products when screen opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ProductProvider>(context, listen: false).initializeProducts();
     });
@@ -82,12 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Banner Slider
               const BannerSlider(),
 
               const SizedBox(height: 24),
-
-              // Categories Section
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -101,7 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        // Navigate to categories screen (handled by bottom nav)
                       },
                       child: const Text(AppStrings.seeAll),
                     ),
@@ -110,8 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               const SizedBox(height: 12),
-
-              // Categories Horizontal List
               SizedBox(
                 height: 50,
                 child: ListView.builder(
@@ -141,8 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               const SizedBox(height: 24),
-
-              // Featured Products Section
               if (productProvider.featuredProducts.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -207,8 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 const SizedBox(height: 24),
               ],
-
-              // New Arrivals Section
               if (productProvider.newArrivals.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
